@@ -6,6 +6,8 @@ use Ignittion\Kong\Apis\Api;
 use Ignittion\Kong\Apis\Consumer;
 use Ignittion\Kong\Apis\Node;
 use Ignittion\Kong\Apis\Plugin;
+use Ignittion\Kong\Apis\KeyAuthPlugin;
+use Ignittion\Kong\Apis\RateLimitPlugin;
 use Ignittion\Kong\Exceptions\InvalidUrlException;
 
 class Kong
@@ -81,5 +83,15 @@ class Kong
     public function plugin()
     {
         return new Plugin($this->url, $this->port);
+    }
+
+    public function keyAuthPlugin()
+    {
+        return new KeyAuthPlugin($this->url, $this->port);
+    }
+
+    public function rateLimitPlugin()
+    {
+        return new RateLimitPlugin($this->url, $this->port);
     }
 }

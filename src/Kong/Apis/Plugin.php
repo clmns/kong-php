@@ -44,6 +44,33 @@ class Plugin extends AbstractApi
     }
 
     /**
+     * List plugins for a specific API
+     *
+     * @see https://getkong.org/docs/0.6.x/admin-api/#list-plugins-per-api
+     *
+     * @param string $api
+     * @param array $params
+     * @return \stdClass
+     */
+    public function perConsumerAndName($consumer, $name, array $params = [])
+    {
+        $plugins = $this->all();
+
+        $returnValues = array();
+
+        foreach ($plugins->data->data as $plugin)
+        {
+            if ($plugin->name === $name)
+            {
+                if (array_key_exists('consumer_id', $plugin) && $plugin->consumer_id === $consumer)
+                    array_push($returnValues, $plugin);
+            }
+        }
+
+        return $returnValues;
+    }
+
+    /**
      * Get enabled plugins for the node
      *
      * @see https://getkong.org/docs/0.6.x/admin-api/#retrieve-enabled-plugins
